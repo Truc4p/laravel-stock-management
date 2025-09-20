@@ -21,6 +21,71 @@
             min-height: 100vh;
             background: linear-gradient(135deg, #c8e7f7 0%, #eaf6fc 100%);
             box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease-in-out;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            z-index: 1000;
+            transform: translateX(-100%);
+            padding-top: 70px !important;
+        }
+        
+        .sidebar.show {
+            transform: translateX(0);
+        }
+        
+        /* Desktop styles */
+        @media (min-width: 768px) {
+            .sidebar {
+                position: fixed;
+                transform: translateX(-100%);
+                width: 250px;
+                padding-top: 70px !important;
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            #main-content {
+                margin-left: 0;
+                transition: margin-left 0.3s ease-in-out;
+            }
+            
+            #main-content.shifted {
+                margin-left: 250px;
+            }
+        }
+        
+        /* Mobile overlay */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+        
+        .sidebar-overlay.show {
+            display: block;
+        }
+        
+        /* Hamburger button styles */
+        #sidebarToggle {
+            border: none;
+            background: transparent;
+            color: #5a9bc4;
+            font-size: 1.2rem;
+            padding: 0.5rem;
+        }
+        
+        #sidebarToggle:hover {
+            background-color: #f8f9fa;
+            color: #5a9bc4;
         }
         
         .sidebar .nav-link {
@@ -56,7 +121,7 @@
         }
         
         .card-header {
-            background: linear-gradient(135deg, #c8e7f7 0%, #eaf6fc 100%);
+            background: #c8e7f7;
             color: black;
             border-radius: 12px 12px 0 0 !important;
             border: none;
@@ -76,7 +141,7 @@
         }
         
         .stat-card {
-            background: linear-gradient(135deg, #c8e7f7 0%, #eaf6fc 100%);
+            background: #c8e7f7;
             color: black;
             border-radius: 15px;
             padding: 25px;
@@ -94,7 +159,7 @@
         }
         
         .table thead th {
-            background: linear-gradient(135deg, #c8e7f7 0%, #eaf6fc 100%);
+            background: #eaf6fc;
             color: black;
             border: none;
             font-weight: 500;
@@ -103,6 +168,27 @@
         .navbar {
             background: white !important;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        /* Navbar icon links styling */
+        .navbar-nav .nav-link {
+            color: #5a9bc4 !important;
+            padding: 0.5rem 0.75rem !important;
+            margin: 0 0.25rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+        
+        .navbar-nav .nav-link:hover {
+            background-color: #f0f8ff;
+            color: #2c5282 !important;
+            transform: translateY(-2px);
+        }
+        
+        .navbar-nav .nav-link.active {
+            background: linear-gradient(135deg, #c8e7f7 0%, #eaf6fc 100%);
+            color: black !important;
         }
         
         .alert {
@@ -177,59 +263,90 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container-fluid">
+                <!-- Hamburger Menu Button -->
+                <button class="btn btn-outline-primary me-3" type="button" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
                 <a class="navbar-brand fw-bold" href="{{ route('dashboard') }}">
                     <i class="fas fa-warehouse text-primary me-2"></i>
-                    Warehouse Management System
+                    <span class="d-none d-sm-inline">Warehouse Management System</span>
+                    <span class="d-sm-none">WMS</span>
                 </a>
                 
-                <div class="navbar-nav ms-auto">
-                    <div class="nav-item">
-                        <span class="nav-link">
-                            <i class="fas fa-user me-2"></i>Demo User
-                        </span>
-                    </div>
+                <div class="navbar-nav ms-auto d-flex flex-row">
+                    <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" 
+                       href="{{ route('dashboard') }}" title="Dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </a>
+                    <a class="nav-link {{ request()->routeIs('products.*') ? 'active' : '' }}" 
+                       href="{{ route('products.index') }}" title="Products">
+                        <i class="fas fa-box"></i>
+                    </a>
+                    <a class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}" 
+                       href="{{ route('categories.index') }}" title="Categories">
+                        <i class="fas fa-tags"></i>
+                    </a>
+                    <a class="nav-link {{ request()->routeIs('suppliers.*') ? 'active' : '' }}" 
+                       href="{{ route('suppliers.index') }}" title="Suppliers">
+                        <i class="fas fa-truck"></i>
+                    </a>
+                    <a class="nav-link {{ request()->routeIs('warehouses.*') ? 'active' : '' }}" 
+                       href="{{ route('warehouses.index') }}" title="Warehouses">
+                        <i class="fas fa-warehouse"></i>
+                    </a>
+                    <a class="nav-link {{ request()->routeIs('inventory.*') ? 'active' : '' }}" 
+                       href="{{ route('inventory.index') }}" title="Inventory">
+                        <i class="fas fa-boxes"></i>
+                    </a>
+                    <a class="nav-link {{ request()->routeIs('stock-movements.*') ? 'active' : '' }}" 
+                       href="{{ route('stock-movements.index') }}" title="Stock Movements">
+                        <i class="fas fa-exchange-alt"></i>
+                    </a>
                 </div>
             </div>
         </nav>
 
-        <div class="container-fluid p-0">
-            <div class="row g-0">
-                <div class="col-md-2">
-                    <div class="sidebar p-3">
-                        <nav class="nav flex-column">
-                            <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" 
-                               href="{{ route('dashboard') }}">
-                                <i class="fas fa-tachometer-alt"></i>Dashboard
-                            </a>
-                            <a class="nav-link {{ request()->routeIs('products.*') ? 'active' : '' }}" 
-                               href="{{ route('products.index') }}">
-                                <i class="fas fa-box"></i>Products
-                            </a>
-                            <a class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}" 
-                               href="{{ route('categories.index') }}">
-                                <i class="fas fa-tags"></i>Categories
-                            </a>
-                            <a class="nav-link {{ request()->routeIs('suppliers.*') ? 'active' : '' }}" 
-                               href="{{ route('suppliers.index') }}">
-                                <i class="fas fa-truck"></i>Suppliers
-                            </a>
-                            <a class="nav-link {{ request()->routeIs('warehouses.*') ? 'active' : '' }}" 
-                               href="{{ route('warehouses.index') }}">
-                                <i class="fas fa-warehouse"></i>Warehouses
-                            </a>
-                            <a class="nav-link {{ request()->routeIs('inventory.*') ? 'active' : '' }}" 
-                               href="{{ route('inventory.index') }}">
-                                <i class="fas fa-boxes"></i>Inventory
-                            </a>
-                            <a class="nav-link {{ request()->routeIs('stock-movements.*') ? 'active' : '' }}" 
-                               href="{{ route('stock-movements.index') }}">
-                                <i class="fas fa-exchange-alt"></i>Stock Movements
-                            </a>
-                        </nav>
-                    </div>
-                </div>
-                <div class="col-md-10">
-                    <div class="main-content p-4">
+        <!-- Sidebar Overlay for mobile -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        
+        <!-- Sidebar (positioned absolutely) -->
+        <div class="sidebar p-3" id="sidebar">
+            <nav class="nav flex-column">
+                <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" 
+                   href="{{ route('dashboard') }}">
+                    <i class="fas fa-tachometer-alt"></i>Dashboard
+                </a>
+                <a class="nav-link {{ request()->routeIs('products.*') ? 'active' : '' }}" 
+                   href="{{ route('products.index') }}">
+                    <i class="fas fa-box"></i>Products
+                </a>
+                <a class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}" 
+                   href="{{ route('categories.index') }}">
+                    <i class="fas fa-tags"></i>Categories
+                </a>
+                <a class="nav-link {{ request()->routeIs('suppliers.*') ? 'active' : '' }}" 
+                   href="{{ route('suppliers.index') }}">
+                    <i class="fas fa-truck"></i>Suppliers
+                </a>
+                <a class="nav-link {{ request()->routeIs('warehouses.*') ? 'active' : '' }}" 
+                   href="{{ route('warehouses.index') }}">
+                    <i class="fas fa-warehouse"></i>Warehouses
+                </a>
+                <a class="nav-link {{ request()->routeIs('inventory.*') ? 'active' : '' }}" 
+                   href="{{ route('inventory.index') }}">
+                    <i class="fas fa-boxes"></i>Inventory
+                </a>
+                <a class="nav-link {{ request()->routeIs('stock-movements.*') ? 'active' : '' }}" 
+                   href="{{ route('stock-movements.index') }}">
+                    <i class="fas fa-exchange-alt"></i>Stock Movements
+                </a>
+            </nav>
+        </div>
+        
+        <!-- Main content (full width) -->
+        <div id="main-content">
+            <div class="main-content p-4">
                         @if (session('success'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <i class="fas fa-check-circle me-2"></i>{{ session('success') }}
@@ -260,12 +377,79 @@
                         @yield('content')
                     </div>
                 </div>
-            </div>
-        </div>
     </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Sidebar Toggle Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            
+            // Toggle sidebar function
+            function toggleSidebar() {
+                sidebar.classList.toggle('show');
+                sidebarOverlay.classList.toggle('show');
+                document.body.classList.toggle('sidebar-open');
+                
+                // On desktop, shift main content
+                const mainContent = document.getElementById('main-content');
+                if (window.innerWidth >= 768) {
+                    mainContent.classList.toggle('shifted');
+                }
+            }
+            
+            // Close sidebar function
+            function closeSidebar() {
+                sidebar.classList.remove('show');
+                sidebarOverlay.classList.remove('show');
+                document.body.classList.remove('sidebar-open');
+                
+                // On desktop, remove main content shift
+                const mainContent = document.getElementById('main-content');
+                mainContent.classList.remove('shifted');
+            }
+            
+            // Event listeners
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', toggleSidebar);
+            }
+            
+            if (sidebarOverlay) {
+                sidebarOverlay.addEventListener('click', closeSidebar);
+            }
+            
+            // Close sidebar when clicking on nav links (mobile)
+            const navLinks = sidebar.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth < 768) {
+                        closeSidebar();
+                    }
+                });
+            });
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 768) {
+                    closeSidebar();
+                }
+            });
+            
+            // Prevent body scroll when sidebar is open
+            const style = document.createElement('style');
+            style.textContent = `
+                body.sidebar-open {
+                    overflow: hidden;
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+    
     @yield('scripts')
 </body>
 </html>

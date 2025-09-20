@@ -104,7 +104,7 @@
                 <div class="card-body">
                     @if($warehouse->inventory->count() > 0)
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover">
+                            <table class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th>Product</th>
@@ -181,7 +181,7 @@
                 <div class="card-body">
                     @if($warehouse->stockMovements->count() > 0)
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover">
+                            <table class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th>Date</th>

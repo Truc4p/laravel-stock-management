@@ -16,7 +16,7 @@
                 <div class="card-body">
                     @if($suppliers->count() > 0)
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover">
+                            <table class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th>Supplier Name</th>
