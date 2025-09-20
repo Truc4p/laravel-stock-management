@@ -9,9 +9,6 @@
                     <h4 class="mb-0">
                         <i class="fas fa-plus me-2"></i>Add New Warehouse
                     </h4>
-                    <a href="{{ route('warehouses.index') }}" class="btn btn-outline-secondary">
-                        <i class="fas fa-arrow-left me-2"></i>Back to Warehouses
-                    </a>
                 </div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('warehouses.store') }}">

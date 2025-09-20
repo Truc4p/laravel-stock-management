@@ -10,11 +10,8 @@
                         <i class="fas fa-edit me-2"></i>Edit Supplier: {{ $supplier->name }}
                     </h4>
                     <div>
-                        <a href="{{ route('suppliers.show', $supplier) }}" class="btn btn-outline-info me-2">
+                        <a href="{{ route('suppliers.show', $supplier) }}" class="btn btn-info me-2">
                             <i class="fas fa-eye me-2"></i>View
-                        </a>
-                        <a href="{{ route('suppliers.index') }}" class="btn btn-outline-secondary">
-                            <i class="fas fa-arrow-left me-2"></i>Back to Suppliers
                         </a>
                     </div>
                 </div>
@@ -226,7 +223,7 @@
                                                   class="d-inline" onsubmit="return confirm('Are you sure you want to delete this supplier?')">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-outline-danger">
+                                                <button type="submit" class="btn btn-danger">
                                                     <i class="fas fa-trash me-2"></i>Delete Supplier
                                                 </button>
                                             </form>

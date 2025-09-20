@@ -5,9 +5,6 @@
     <h1 class="h3 mb-0">
         <i class="fas fa-exchange-alt me-2"></i>Stock Movement
     </h1>
-    <a href="{{ route('inventory.index') }}" class="btn btn-outline-secondary">
-        <i class="fas fa-arrow-left me-2"></i>Back to Inventory
-    </a>
 </div>
 
 <div class="card">

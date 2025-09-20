@@ -1,103 +1,146 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <!-- Header Card -->
-            <div class="card mb-4">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="mb-0">
-                        <i class="fas fa-tags me-2"></i>{{ $category->name }}
-                        <span class="badge ms-2 {{ $category->is_active ? 'bg-success' : 'bg-secondary' }}">
-                            {{ $category->is_active ? 'Active' : 'Inactive' }}
-                        </span>
-                    </h4>
-                    <div>
-                        <a href="{{ route('categories.edit', $category) }}" class="btn btn-outline-primary me-2">
-                            <i class="fas fa-edit me-2"></i>Edit
-                        </a>
-                        <a href="{{ route('categories.index') }}" class="btn btn-outline-secondary">
-                            <i class="fas fa-arrow-left me-2"></i>Back to Categories
-                        </a>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0">
+        <i class="fas fa-tags me-2"></i>Category Details
+    </h1>
+    <div class="btn-group" role="group">
+        <a href="{{ route('categories.edit', $category) }}" class="btn btn-primary">
+            <i class="fas fa-edit me-2"></i>Edit Category
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Category Information -->
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>Category Information
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label text-muted">Category Name</label>
+                            <p class="fw-bold fs-5">{{ $category->name }}</p>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label text-muted">Slug</label>
+                            <p><code class="fs-6">{{ $category->slug }}</code></p>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label text-muted">Status</label>
+                            <p>
+                                <span class="badge bg-{{ $category->is_active ? 'success' : 'danger' }} fs-6">
+                                    {{ $category->is_active ? 'Active' : 'Inactive' }}
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        @if($category->description)
+                        <div class="mb-3">
+                            <label class="form-label text-muted">Description</label>
+                            <p>{{ $category->description }}</p>
+                        </div>
+                        @endif
+                        
+                        <div class="mb-3">
+                            <label class="form-label text-muted">Products Count</label>
+                            <p class="fw-bold fs-4">
+                                <span class="badge bg-info fs-5">{{ $category->products->count() }} products</span>
+                            </p>
+                        </div>
                     </div>
                 </div>
-                <div class="card-body">
-                    <div class="row">
-                        <!-- Basic Information -->
-                        <div class="col-md-6">
-                            <h6 class="text-primary mb-3">
-                                <i class="fas fa-info-circle me-2"></i>Category Information
-                            </h6>
-                            <div class="mb-3">
-                                <strong>Slug:</strong>
-                                <span class="badge bg-secondary ms-2">{{ $category->slug }}</span>
-                            </div>
-                            @if($category->description)
-                                <div class="mb-3">
-                                    <strong>Description:</strong>
-                                    <p class="text-muted mb-0 mt-1">{{ $category->description }}</p>
-                                </div>
-                            @endif
-                            <div class="mb-3">
-                                <strong>Created:</strong>
-                                <span class="ms-2">{{ $category->created_at->format('M d, Y \a\t H:i') }}</span>
-                            </div>
-                            <div class="mb-3">
-                                <strong>Last Updated:</strong>
-                                <span class="ms-2">{{ $category->updated_at->format('M d, Y \a\t H:i') }}</span>
-                            </div>
-                        </div>
-
-                        <!-- Statistics -->
-                        <div class="col-md-6">
-                            <h6 class="text-primary mb-3">
-                                <i class="fas fa-chart-bar me-2"></i>Statistics
-                            </h6>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="card bg-primary text-white">
-                                        <div class="card-body text-center">
-                                            <div class="h3 mb-1">{{ $category->products->count() }}</div>
-                                            <small>Total Products</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="card bg-success text-white">
-                                        <div class="card-body text-center">
-                                            <div class="h3 mb-1">
-                                                ${{ number_format($category->products->sum(function($product) {
-                                                    return $product->inventory->sum(function($inventory) use ($product) {
-                                                        return $inventory->current_stock * $product->price;
-                                                    });
-                                                }), 2) }}
-                                            </div>
-                                            <small>Total Value</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                
+                @php
+                    $totalValue = $category->products->sum(function($product) {
+                        return $product->inventory->sum(function($inventory) use ($product) {
+                            return $inventory->quantity * $product->cost_price;
+                        });
+                    });
+                @endphp
+                
+                @if($totalValue > 0)
+                <div class="mb-3">
+                    <label class="form-label text-muted">Total Category Value</label>
+                    <p class="fw-bold text-success fs-4">${{ number_format($totalValue, 2) }}</p>
+                </div>
+                @endif
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quick Stats -->
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-chart-bar me-2"></i>Quick Stats
+                </h5>
+            </div>
+            <div class="card-body">
+                @php
+                    $activeProducts = $category->products->where('is_active', true)->count();
+                    $totalStock = $category->products->sum(function($product) {
+                        return $product->inventory->sum('quantity');
+                    });
+                @endphp
+                
+                <div class="mb-3">
+                    <p class="fw-bold fs-8 mb-0">{{ $category->products->count() }} Total Products</p>
+                </div>
+                
+                <div class="mb-3">
+                    <p class="fw-bold text-success fs-8 mb-0">{{ $activeProducts }} Active Products</p>
+                </div>
+                
+                <div class="mb-3">
+                    <p class="fw-bold text-primary fs-8 mb-0">{{ number_format($totalStock) }} Total Stock Units</p>
                 </div>
             </div>
-
-            <!-- Products in Category -->
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">
-                        <i class="fas fa-box me-2"></i>Products in Category
-                    </h5>
-                    <div>
-                        <a href="{{ route('products.create') }}?category={{ $category->id }}" class="btn btn-outline-primary btn-sm me-2">
-                            <i class="fas fa-plus me-2"></i>Add Product to Category
-                        </a>
-                        <a href="{{ route('products.index') }}?category_id={{ $category->id }}" class="btn btn-outline-secondary btn-sm">
-                            <i class="fas fa-external-link-alt me-2"></i>View All Products
-                        </a>
-                    </div>
+        </div>
+        
+        <!-- Quick Actions -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-bolt me-2"></i>Quick Actions
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="{{ route('categories.edit', $category) }}" class="btn btn-primary">
+                        <i class="fas fa-edit me-2"></i>Edit Category
+                    </a>
+                    <a href="{{ route('products.create') }}?category={{ $category->id }}" class="btn btn-success">
+                        <i class="fas fa-plus me-2"></i>Add Product
+                    </a>
+                    <a href="{{ route('products.index', ['category_id' => $category->id]) }}" class="btn btn-info">
+                        <i class="fas fa-box me-2"></i>View All Products
+                    </a>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Products in Category -->
+<div class="card">
+    <div class="card-header">
+        <h5 class="mb-0">
+            <i class="fas fa-box me-2"></i>Products in this Category
+            <span class="badge bg-primary ms-2">{{ $category->products->count() }} products</span>
+        </h5>
+    </div>
                 <div class="card-body">
                     @if($category->products->count() > 0)
                         <div class="table-responsive">
@@ -111,7 +154,7 @@
                                         <th>Total Stock</th>
                                         <th>Stock Value</th>
                                         <th>Status</th>
-                                        <th>Actions</th>
+                                        <th width="140">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -134,11 +177,11 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <strong>${{ number_format($product->price, 2) }}</strong>
+                                            <strong>${{ number_format($product->cost_price, 2) }}</strong>
                                         </td>
                                         <td>
                                             @php
-                                                $totalStock = $product->inventory->sum('current_stock');
+                                                $totalStock = $product->inventory->sum('quantity');
                                                 $minStock = $product->minimum_stock ?? 0;
                                             @endphp
                                             <span class="badge {{ $totalStock <= $minStock ? 'bg-danger' : 'bg-success' }}">
@@ -149,7 +192,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <strong>${{ number_format($totalStock * $product->price, 2) }}</strong>
+                                            <strong>${{ number_format($totalStock * $product->cost_price, 2) }}</strong>
                                         </td>
                                         <td>
                                             @if($product->is_active)
@@ -158,28 +201,26 @@
                                                 <span class="badge bg-secondary">Inactive</span>
                                             @endif
                                         </td>
-                                        <td>
-                                            <div class="btn-group" role="group">
-                                                <a href="{{ route('products.show', $product) }}" 
-                                                   class="btn btn-sm btn-outline-primary" title="View Product">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <a href="{{ route('products.edit', $product) }}" 
-                                                   class="btn btn-sm btn-outline-secondary" title="Edit Product">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                            </div>
+                                        <td class="text-nowrap">
+                                            <a href="{{ route('products.show', $product) }}" 
+                                               class="btn btn-info btn-sm me-1" title="View Product">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="{{ route('products.edit', $product) }}" 
+                                               class="btn btn-warning btn-sm" title="Edit Product">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
                                 <tfoot>
-                                    <tr class="table-info">
+                                    <tr style="background-color: white;">
                                         <th colspan="5">Total Category Value:</th>
                                         <th>
                                             ${{ number_format($category->products->sum(function($product) {
                                                 return $product->inventory->sum(function($inventory) use ($product) {
-                                                    return $inventory->current_stock * $product->price;
+                                                    return $inventory->quantity * $product->cost_price;
                                                 });
                                             }), 2) }}
                                         </th>

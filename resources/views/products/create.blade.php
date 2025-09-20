@@ -5,9 +5,6 @@
     <h1 class="h3 mb-0">
         <i class="fas fa-plus me-2"></i>Add New Product
     </h1>
-    <a href="{{ route('products.index') }}" class="btn btn-outline-secondary">
-        <i class="fas fa-arrow-left me-2"></i>Back to Products
-    </a>
 </div>
 
 <div class="card">

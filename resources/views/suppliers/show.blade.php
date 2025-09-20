@@ -17,9 +17,6 @@
                         <a href="{{ route('suppliers.edit', $supplier) }}" class="btn btn-outline-primary me-2">
                             <i class="fas fa-edit me-2"></i>Edit
                         </a>
-                        <a href="{{ route('suppliers.index') }}" class="btn btn-outline-secondary">
-                            <i class="fas fa-arrow-left me-2"></i>Back to Suppliers
-                        </a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -228,7 +225,7 @@
                                     @endforeach
                                 </tbody>
                                 <tfoot>
-                                    <tr class="table-info">
+                                    <tr style="background-color: white;">
                                         <th colspan="5">Total Supplier Value:</th>
                                         <th>
                                             ${{ number_format($supplier->products->sum(function($product) {

@@ -6,9 +6,6 @@
         <i class="fas fa-box me-2"></i>Product Details
     </h1>
     <div class="btn-group" role="group">
-        <a href="{{ route('products.index') }}" class="btn btn-outline-secondary">
-            <i class="fas fa-arrow-left me-2"></i>Back to Products
-        </a>
         <a href="{{ route('products.edit', $product) }}" class="btn btn-primary">
             <i class="fas fa-edit me-2"></i>Edit Product
         </a>

@@ -26,9 +26,6 @@
                             {{ ucfirst($stockMovement->type) }}
                         </span>
                     </h4>
-                    <a href="{{ route('stock-movements.index') }}" class="btn btn-outline-secondary">
-                        <i class="fas fa-arrow-left me-2"></i>Back to Stock Movements
-                    </a>
                 </div>
                 <div class="card-body">
                     <div class="row">

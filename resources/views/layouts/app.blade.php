@@ -116,7 +116,7 @@
         
         .card {
             border: none;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
             border-radius: 12px;
         }
         
@@ -128,14 +128,14 @@
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, #c8e7f7 0%, #eaf6fc 100%);
+            background: #c8e7f7;
             border: none;
             border-radius: 8px;
             color: black;
         }
         
         .btn-primary:hover {
-            background: linear-gradient(135deg, #95cae8 0%, #6ba3c5 100%);
+            background: #95cae8;
             transform: translateY(-2px);
             box-shadow: 0 4px 15px rgba(168, 216, 240, 0.4);
         }
@@ -167,7 +167,6 @@
         
         .navbar {
             background: white !important;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
         /* Navbar icon links styling */
@@ -197,18 +196,61 @@
         }
         
         .btn-info {
-            background: linear-gradient(135deg, #b8e0f5 0%, #8cc8e0 100%);
+            background: #b8e0f5;
             border: none;
             color: #2c5282;
         }
         
         .btn-info:hover {
-            background: linear-gradient(135deg, #a5d7f2 0%, #7ab8d4 100%);
+            background: #d1e7ff;
             color: #2c5282;
         }
         
         .badge.bg-primary {
-            background: linear-gradient(135deg, #43ace0 0%, #59bff2 100%) !important;
+            background: #6ba3c5 !important;
+        }
+        
+        .badge.bg-info {
+            background: #e6f3ff !important;
+            color: #2c5282 !important;
+        }
+
+        .badge.bg-success {
+            background: #d2f4e1 !important;
+            color: #256b44 !important;
+        }
+
+        .badge.bg-danger {
+            background: #f8d7da !important;
+            color: #721c24 !important;
+        }
+
+        .badge.bg-warning {
+            background: #fff3cd !important;
+            color: #856404 !important;
+        }
+
+        .badge.bg-secondary {
+            background: #e0e3e5 !important;
+            color: #595c5e !important;
+        }
+
+        .btn-info {
+            background-color: #e6f3ff !important;
+            border-color: #e6f3ff !important;
+            color: #2c5282 !important;
+        }
+
+        .btn-warning {
+            background-color: #fff3cd !important;
+            border-color: #fff3cd !important;
+            color: #856404 !important;
+        }
+
+        .btn-danger {
+            background-color: #f8d7da !important;
+            border-color: #f8d7da !important;
+            color: #721c24 !important;
         }
         
         .text-primary {
@@ -234,23 +276,49 @@
         /* Pagination styling */
         .pagination {
             margin-bottom: 0;
+            gap: 0.25rem;
+        }
+        
+        .pagination .page-item {
+            margin: 0 2px;
         }
         
         .pagination .page-link {
             color: #5a9bc4;
-            border-color: #c8e7f7;
+            border: 1px solid #c8e7f7;
+            border-radius: 6px !important;
+            padding: 0.375rem 0.5rem;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
         }
         
         .pagination .page-item.active .page-link {
-            background: linear-gradient(135deg, #c8e7f7 0%, #eaf6fc 100%);
-            border-color: #eaf6fc;
-            color: black;
+            background: #c8e7f7;
+            border-color: #c8e7f7;
+            color: #2c5282;
+            font-weight: 600;
         }
         
         .pagination .page-link:hover {
-            background-color: #e6f3ff;
-            border-color: #eaf6fc;
-            color: #5a9bc4;
+            background: #e6f3ff;
+            border-color: #c8e7f7;
+            color: #2c5282;
+        }
+        
+        .pagination .page-item.disabled .page-link {
+            color: #9ca3af;
+            background-color: #f9fafb;
+            border-color: #e5e7eb;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .pagination .page-item:first-child .page-link,
+        .pagination .page-item:last-child .page-link {
+            font-size: 0.8rem;
+            padding: 0.375rem 0.45rem;
         }
         
         /* Ensure table is responsive */
@@ -261,7 +329,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-white">
             <div class="container-fluid">
                 <!-- Hamburger Menu Button -->
                 <button class="btn btn-outline-primary me-3" type="button" id="sidebarToggle">

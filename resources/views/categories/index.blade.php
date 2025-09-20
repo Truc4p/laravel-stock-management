@@ -25,7 +25,7 @@
                                         <th>Products Count</th>
                                         <th>Status</th>
                                         <th>Created Date</th>
-                                        <th>Actions</th>
+                                        <th width="140">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -63,31 +63,29 @@
                                         <td>
                                             <small class="text-muted">{{ $category->created_at->format('M d, Y') }}</small>
                                         </td>
-                                        <td>
-                                            <div class="btn-group" role="group">
-                                                <a href="{{ route('categories.show', $category) }}" 
-                                                   class="btn btn-sm btn-outline-primary" title="View">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <a href="{{ route('categories.edit', $category) }}" 
-                                                   class="btn btn-sm btn-outline-secondary" title="Edit">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                @if($category->products_count == 0)
-                                                    <form method="POST" action="{{ route('categories.destroy', $category) }}" 
-                                                          class="d-inline" onsubmit="return confirm('Are you sure you want to delete this category?')">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete">
-                                                            <i class="fas fa-trash"></i>
-                                                        </button>
-                                                    </form>
-                                                @else
-                                                    <button type="button" class="btn btn-sm btn-outline-danger" disabled title="Cannot delete category with products">
+                                        <td class="text-nowrap">
+                                            <a href="{{ route('categories.show', $category) }}" 
+                                               class="btn btn-info btn-sm me-1" title="View">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="{{ route('categories.edit', $category) }}" 
+                                               class="btn btn-warning btn-sm me-1" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            @if($category->products_count == 0)
+                                                <form method="POST" action="{{ route('categories.destroy', $category) }}" 
+                                                      class="d-inline" onsubmit="return confirm('Are you sure you want to delete this category?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm" title="Delete">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
-                                                @endif
-                                            </div>
+                                                </form>
+                                            @else
+                                                <button type="button" class="btn btn-danger btn-sm" disabled title="Cannot delete category with products">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach

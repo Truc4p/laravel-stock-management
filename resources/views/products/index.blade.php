@@ -77,7 +77,7 @@
                             <th>Selling Price</th>
                             <th>Min Stock</th>
                             <th>Status</th>
-                            <th width="120">Actions</th>
+                            <th width="140">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -111,23 +111,21 @@
                                     {{ $product->is_active ? 'Active' : 'Inactive' }}
                                 </span>
                             </td>
-                            <td>
-                                <div class="btn-group btn-group-sm" role="group">
-                                    <a href="{{ route('products.show', $product) }}" class="btn btn-outline-info" title="View">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <a href="{{ route('products.edit', $product) }}" class="btn btn-outline-warning" title="Edit">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <form action="{{ route('products.destroy', $product) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-outline-danger" title="Delete" 
-                                                onclick="return confirm('Are you sure you want to delete this product?')">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </form>
-                                </div>
+                            <td class="text-nowrap">
+                                <a href="{{ route('products.show', $product) }}" class="btn btn-info btn-sm me-1" title="View">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="{{ route('products.edit', $product) }}" class="btn btn-warning btn-sm me-1" title="Edit">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <form action="{{ route('products.destroy', $product) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm" title="Delete" 
+                                            onclick="return confirm('Are you sure you want to delete this product?')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach
@@ -136,7 +134,8 @@
             </div>
             
             @if($products->hasPages())
-                <div class="card-footer">
+                <!-- Pagination -->
+                <div class="d-flex justify-content-center mt-3">
                     {{ $products->links() }}
                 </div>
             @endif

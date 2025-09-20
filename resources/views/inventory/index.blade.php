@@ -61,7 +61,7 @@
             <span class="badge bg-primary ms-2">{{ $inventory->total() }} items</span>
         </h5>
     </div>
-    <div class="card-body p-0">
+    <div class="card-body">
         @if($inventory->count() > 0)
             <div class="table-responsive">
                 <table class="table table-hover mb-0">
@@ -76,12 +76,12 @@
                             <th>Avg Cost</th>
                             <th>Stock Value</th>
                             <th>Last Movement</th>
-                            <th width="120">Actions</th>
+                            <th width="140">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($inventory as $item)
-                        <tr class="{{ $item->quantity <= $item->product->minimum_stock ? 'table-warning' : '' }}">
+                        <tr>
                             <td>
                                 <div>
                                     <strong>{{ $item->product->name }}</strong>
@@ -127,16 +127,14 @@
                                     <small class="text-muted">Never</small>
                                 @endif
                             </td>
-                            <td>
-                                <div class="btn-group btn-group-sm" role="group">
-                                    <a href="{{ route('inventory.show', $item) }}" class="btn btn-outline-info" title="View History">
-                                        <i class="fas fa-history"></i>
-                                    </a>
-                                    <button type="button" class="btn btn-outline-warning" title="Adjust Stock"
-                                            data-bs-toggle="modal" data-bs-target="#adjustModal{{ $item->id }}">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                </div>
+                            <td class="text-nowrap">
+                                <a href="{{ route('inventory.show', $item) }}" class="btn btn-info btn-sm me-1" title="View History">
+                                    <i class="fas fa-history"></i>
+                                </a>
+                                <button type="button" class="btn btn-warning btn-sm" title="Adjust Stock"
+                                        data-bs-toggle="modal" data-bs-target="#adjustModal{{ $item->id }}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
 
                                 <!-- Adjust Stock Modal -->
                                 <div class="modal fade" id="adjustModal{{ $item->id }}" tabindex="-1">
@@ -192,7 +190,8 @@
             </div>
             
             @if($inventory->hasPages())
-                <div class="card-footer">
+                <!-- Pagination -->
+                <div class="d-flex justify-content-center mt-3">
                     {{ $inventory->links() }}
                 </div>
             @endif
