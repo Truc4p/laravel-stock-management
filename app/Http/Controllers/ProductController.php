@@ -17,24 +17,29 @@ class ProductController extends Controller
     {
         $query = Product::with(['category', 'supplier']);
 
-        if ($request->has('search')) {
+        // Search functionality
+        if ($request->filled('search')) {
             $search = $request->get('search');
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
                   ->orWhere('sku', 'like', "%{$search}%")
-                  ->orWhere('barcode', 'like', "%{$search}%");
+                  ->orWhere('barcode', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%");
             });
         }
 
-        if ($request->has('category_id')) {
+        // Category filter
+        if ($request->filled('category_id')) {
             $query->where('category_id', $request->get('category_id'));
         }
 
-        if ($request->has('supplier_id')) {
+        // Supplier filter
+        if ($request->filled('supplier_id')) {
             $query->where('supplier_id', $request->get('supplier_id'));
         }
 
-        $products = $query->paginate(15);
+        // Paginate and preserve query parameters
+        $products = $query->paginate(15)->withQueryString();
         $categories = Category::active()->get();
         $suppliers = Supplier::active()->get();
 

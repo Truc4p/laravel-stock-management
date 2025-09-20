@@ -184,7 +184,7 @@
                         </a>
                     </div>
                     <div class="col-md-2 mb-2">
-                        <a href="{{ route('inventory.move') }}" class="btn btn-success w-100">
+                        <a href="{{ route('stock-movements.index') }}" class="btn btn-success w-100">
                             <i class="fas fa-exchange-alt me-2"></i>Stock Movement
                         </a>
                     </div>

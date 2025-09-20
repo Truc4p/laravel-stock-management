@@ -5,7 +5,7 @@
     <h1 class="h3 mb-0">
         <i class="fas fa-boxes me-2"></i>Inventory
     </h1>
-    <a href="{{ route('inventory.move') }}" class="btn btn-primary">
+    <a href="{{ route('stock-movements.index') }}" class="btn btn-primary">
         <i class="fas fa-exchange-alt me-2"></i>Stock Movement
     </a>
 </div>

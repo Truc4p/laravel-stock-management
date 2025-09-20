@@ -116,8 +116,9 @@
         
         .card {
             border: none;
-            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
             border-radius: 12px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
         }
         
         .card-header {
@@ -205,6 +206,22 @@
             background: #d1e7ff;
             color: #2c5282;
         }
+
+        /* .bg-primary {
+            background: #c8e7f7 !important;
+        }
+
+        .bg-success {
+            background: #b2e8cb !important;
+        }
+
+        .bg-danger {
+            background: #f7b9bd !important;
+        }
+
+        .bg-warning {
+            background: #f9e7b6 !important;
+        } */
         
         .badge.bg-primary {
             background: #6ba3c5 !important;
@@ -231,7 +248,7 @@
         }
 
         .badge.bg-secondary {
-            background: #e0e3e5 !important;
+            background: #eff2f4 !important;
             color: #595c5e !important;
         }
 
@@ -266,11 +283,6 @@
             background-color: #c8e7f7;
             border-color: #eaf6fc;
             color: black;
-        }
-        
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
         }
         
         /* Pagination styling */

@@ -12,7 +12,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row mb-4">
     <!-- Product Information -->
     <div class="col-md-8">
         <div class="card mb-4">

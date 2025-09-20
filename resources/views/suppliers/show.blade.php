@@ -84,29 +84,9 @@
                             <h6 class="text-primary mb-3">
                                 <i class="fas fa-chart-bar me-2"></i>Statistics
                             </h6>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="card bg-primary text-white">
-                                        <div class="card-body text-center">
-                                            <div class="h3 mb-1">{{ $supplier->products->count() }}</div>
-                                            <small>Products</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="card bg-success text-white">
-                                        <div class="card-body text-center">
-                                            <div class="h3 mb-1">
-                                                ${{ number_format($supplier->products->sum(function($product) {
-                                                    return $product->inventory->sum(function($inventory) use ($product) {
-                                                        return $inventory->current_stock * $product->price;
-                                                    });
-                                                }), 2) }}
-                                            </div>
-                                            <small>Total Value</small>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="text-muted">
+                                2 Products<br>
+                                $0.00 Total Value
                             </div>
                             <div class="mt-3">
                                 <small class="text-muted">

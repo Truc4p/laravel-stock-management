@@ -15,7 +15,7 @@ class WarehouseSeeder extends Seeder
     {
         $warehouses = [
             [
-                'name' => 'Beauty Central Warehouse',
+                'name' => 'Central Warehouse',
                 'code' => 'BCW001',
                 'description' => 'Main skincare and beauty products storage facility',
                 'address' => '1000 Beauty Boulevard',

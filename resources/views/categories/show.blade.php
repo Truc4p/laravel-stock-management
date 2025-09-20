@@ -12,7 +12,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row mb-4">
     <!-- Category Information -->
     <div class="col-md-8">
         <div class="card mb-4">
@@ -54,8 +54,8 @@
                         
                         <div class="mb-3">
                             <label class="form-label text-muted">Products Count</label>
-                            <p class="fw-bold fs-4">
-                                <span class="badge bg-info fs-5">{{ $category->products->count() }} products</span>
+                            <p class="fw-bold fs-8">
+                                <span class="badge bg-info fs-8">{{ $category->products->count() }} products</span>
                             </p>
                         </div>
                     </div>

@@ -75,32 +75,32 @@
                         <!-- Summary Cards -->
                         <div class="row mb-4">
                             <div class="col-md-3">
-                                <div class="card bg-success text-white">
-                                    <div class="card-body text-center">
+                                <div class="card">
+                                    <div class="card-body text-center text-success">
                                         <div class="h4 mb-1">{{ $movements->where('type', 'in')->count() }}</div>
                                         <small>Stock In</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div class="card bg-danger text-white">
-                                    <div class="card-body text-center">
+                                <div class="card">
+                                    <div class="card-body text-center text-danger">
                                         <div class="h4 mb-1">{{ $movements->where('type', 'out')->count() }}</div>
                                         <small>Stock Out</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div class="card bg-warning text-white">
-                                    <div class="card-body text-center">
+                                <div class="card">
+                                    <div class="card-body text-center text-warning">
                                         <div class="h4 mb-1">{{ $movements->where('type', 'adjustment')->count() }}</div>
                                         <small>Adjustments</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div class="card bg-info text-white">
-                                    <div class="card-body text-center">
+                                <div class="card">
+                                    <div class="card-body text-center text-primary">
                                         <div class="h4 mb-1">{{ $movements->count() }}</div>
                                         <small>Total Movements</small>
                                     </div>
