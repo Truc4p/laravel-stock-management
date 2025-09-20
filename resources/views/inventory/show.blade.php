@@ -39,8 +39,8 @@
                         
                         <div class="mb-3">
                             <label class="form-label text-muted">Current Stock</label>
-                            <p class="fw-bold fs-4">
-                                <span class="badge bg-{{ $inventory->quantity <= $inventory->product->minimum_stock ? 'danger' : 'success' }} fs-5">
+                            <p class="fw-semibold">
+                                <span class="badge bg-{{ $inventory->quantity <= $inventory->product->minimum_stock ? 'danger' : 'success' }}" fs-6">
                                     {{ number_format($inventory->quantity) }} {{ $inventory->product->unit }}
                                 </span>
                             </p>
@@ -55,8 +55,8 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label class="form-label text-muted">Reserved Quantity</label>
-                            <p class="fw-bold">
-                                <span class="badge bg-warning fs-6">
+                            <p class="fw-semibold">
+                                <span class="badge bg-warning" fs-6">
                                     {{ number_format($inventory->reserved_quantity) }} {{ $inventory->product->unit }}
                                 </span>
                             </p>
@@ -64,8 +64,8 @@
                         
                         <div class="mb-3">
                             <label class="form-label text-muted">Available Quantity</label>
-                            <p class="fw-bold">
-                                <span class="badge bg-primary fs-6">
+                            <p class="fw-semibold">
+                                <span class="badge bg-primary" fs-6">
                                     {{ number_format($inventory->available_quantity) }} {{ $inventory->product->unit }}
                                 </span>
                             </p>
@@ -85,7 +85,7 @@
                     </div>
                 </div>
                 
-                <div class="row">
+                <div class="row mt-4">
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label class="form-label text-muted">Last Movement</label>
@@ -181,10 +181,10 @@
             <span class="badge bg-primary ms-2">{{ $movements->total() }} movements</span>
         </h5>
     </div>
-    <div class="card-body p-0">
+    <div class="card-body p-2">
         @if($movements->count() > 0)
             <div class="table-responsive">
-                <table class="table table-hover mb-0">
+                <table class="table table-hover">
                     <thead>
                         <tr>
                             <th>Date</th>
