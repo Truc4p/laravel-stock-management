@@ -1,0 +1,12 @@
+/vendor
+/node_modules
+.env
+.env.backup
+.phpunit.result.cache
+npm-debug.log
+yarn-error.log
+storage/*.key
+.phpunit.cache
+.DS_Store
+Thumbs.db
+tests/
