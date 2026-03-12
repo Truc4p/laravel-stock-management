@@ -11,7 +11,7 @@ use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\StockMovementController;
 
 // For demo purposes, we'll create a simple route without authentication
-Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/', [DashboardController::class, 'index'])->name('home');
 
 // Dashboard
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
